@@ -73,7 +73,8 @@ When /^I? ?add and mark complete all the required attachments$/ do
           %w{BudgetJustification ProjectSummary Narrative Budget_Justification_10YR
           Budget_Justification_10YR_Fed_NonFed},
       'RR-FORMFAMILY-004-2010' =>
-          %w{}
+          %w{},
+      'PA-C-DP1'=>%w{RR_SF424_2_0-V2.0 PerformanceSite_2_0 RR_OtherProjectInfo_1_3-V1.3 RR_KeyPersonExpanded_2_0 PHS398_CoverPageSupplement_2_0-V2.0 PHS398_ResearchPlan_2_0}
   }
   attachments[@proposal.opportunity_id].shuffle.each { |type| @proposal.add_proposal_attachment type: type, file_name: 'test.pdf', status: 'Complete' }
   @proposal.key_personnel.each { |person| @proposal.add_personnel_attachment person: person.full_name, type: 'Biosketch', file_name: 'test.pdf' }

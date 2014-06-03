@@ -12,7 +12,8 @@ module DocumentUtilities
     split = (100.0/@key_personnel.with_units.size).round(2)
 
     # Now make a hash to use for editing the person's splits...
-    splits = {responsibility: split, financial: split, recognition: split, space: split}
+    splits = {responsibility: split, financial: split, #recognition: split, space: split
+               }
 
     # Now we update the KeyPersonObjects' instance variables
     # for their own splits as well as for their units
@@ -25,7 +26,8 @@ module DocumentUtilities
       # Iterate through the units, updating their credit splits with the
       # valid split amount...
       units.each do |unit|
-        [:responsibility, :financial, :recognition, :space].each { |item| unit[item]=units_split }
+        [:responsibility, :financial#, :recognition, :space
+        ].each { |item| unit[item]=units_split }
       end
       person.update_unit_credit_splits units
     end

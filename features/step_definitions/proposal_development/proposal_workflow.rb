@@ -28,11 +28,7 @@ When /^I? ?blanket approve the Proposal$/ do
 end
 
 And /^the principal investigator approves the Proposal$/ do
-  $users.logged_in_user.sign_out unless $users.current_user==nil
-  visit Login do |log_in|
-    log_in.username.set @proposal.key_personnel.principal_investigator.user_name
-    log_in.login
-  end
+  steps '* I log in with the principal investigator'
   @proposal.approve_from_action_list
   visit(Researcher).logout
 end

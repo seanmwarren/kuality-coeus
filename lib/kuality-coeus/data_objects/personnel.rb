@@ -100,10 +100,10 @@ module Personnel
   def update_unit_credit_splits(units=@units)
     units.each do |unit|
       on page_class do |update|
-        update.unit_space(@full_name, unit[:number]).fit unit[:space]
+        #update.unit_space(@full_name, unit[:number]).fit unit[:space]
         update.unit_responsibility(@full_name, unit[:number]).fit unit[:responsibility]
         update.unit_financial(@full_name, unit[:number]).fit unit[:financial]
-        update.unit_recognition(@full_name, unit[:number]).fit unit[:recognition]
+        #update.unit_recognition(@full_name, unit[:number]).fit unit[:recognition]
         update.save
       end
       # This updates the @units variable, in case

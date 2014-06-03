@@ -7,6 +7,7 @@ class BasePage < PageFactory
   action(:close_parents) { |b| b.windows[0..-2].each{ |w| w.close} }
   action(:loading) { |b| b.frm.image(alt: 'working...').wait_while_present }
   action(:awaiting_doc) { |b| b.frm.button(name: 'methodToCall.returnToPortal').wait_while_present }
+  element(:user_menu) { |b| b.frm.link(data_toggle: 'dropdown') }
   element(:logout_button) { |b| b.button(title: 'Click to logout.') }
   action(:logout) { |b| b.logout_button.click }
 
@@ -77,7 +78,7 @@ class BasePage < PageFactory
     end
 
     def tiny_buttons
-      action(:search) { |b| b.frm.button(title: 'search', value: 'search').click; b.loading }
+      action(:search) { |b| b.frm.button(name: 'methodToCall.search', value: 'Search').click; b.loading }
       action(:clear) { |b| b.frm.button(name: 'methodToCall.clearValues').click; b.loading }
       action(:cancel_button) { |b| b.frm.link(title: 'cancel').click; b.loading }
       action(:yes) { |b| b.frm.button(name: 'methodToCall.rejectYes').click; b.loading }
@@ -223,10 +224,10 @@ class BasePage < PageFactory
 
     def combined_credit_splits
       {
-          'recognition'=>1,
-          'responsibility'=>2,
-          'space'=>3,
-          'financial'=>4
+          #'recognition'=>1,
+          'responsibility'=>1,
+          #'space'=>3,
+          'financial'=>2
       }.each do |key, value|
         # Makes methods for the person's 4 credit splits (doesn't have to take the full name of the person to work)
         # Example: page.responsibility('Joe Schmoe').set '100.00'

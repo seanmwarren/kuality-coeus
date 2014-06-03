@@ -111,7 +111,6 @@ And /^the (.*) submits a new Proposal into routing$/ do |role_name|
     * the #{role_name} creates a Proposal
     * adds a principal investigator to the Proposal
     * sets valid credit splits for the Proposal
-    * completes the required custom fields on the Proposal
     * the #{role_name} submits the Proposal into routing
 }
 end
@@ -122,7 +121,6 @@ And /^(the (.*) |)completes the remaining required actions for an S2S submission
     * sets valid credit splits for the Proposal
     * add and mark complete all the required attachments
     * create a final and complete Budget Version for the Proposal
-    * complete the required custom fields on the Proposal
     * answer the S2S questions
         }
 end

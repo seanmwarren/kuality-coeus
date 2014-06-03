@@ -14,7 +14,7 @@ Feature: Proposal Workflows and Routing
   Scenario: Copying a submitted Proposal
     When the Proposal Creator submits a new Proposal into routing
     Then it is still possible to copy the Proposal
-
+   @test
    Scenario: Approval Request is sent to the Proposal's PI
     Given the Proposal Creator submits a new Proposal into routing
     When  the OSPApprover user approves the Proposal
@@ -30,7 +30,7 @@ Feature: Proposal Workflows and Routing
     Given the Proposal Creator submits a new Proposal into routing
     When  I recall the Proposal
     Then  the Proposal status should be Revisions Requested
-
+   # Failed Test - needs attention
    Scenario: An OSP Admin overrides a budget's cost sharing amount
     Given the Budget Column's 'Cost Sharing Amount' has a lookup for 'Proposal Cost Share' that returns 'Amount'
     And   a User exists with the role: 'OSP Administrator'
@@ -40,10 +40,9 @@ Feature: Proposal Workflows and Routing
     And   the Proposal Creator user creates a Budget Version with cost sharing for the Proposal
     And   finalizes the Budget Version
     And   marks the Budget Version complete
-    And   completes the required custom fields on the Proposal
     When  the Proposal is submitted
     Then  the OSP Administrator can override the cost sharing amount
-
+  @test
    Scenario: An OSP representative grants the final approval of a Proposal's workflow
     Given the Proposal Creator submits a new Proposal into routing
     And   the OSPApprover approves the Proposal with future approval requests

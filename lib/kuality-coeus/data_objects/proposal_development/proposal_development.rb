@@ -23,7 +23,7 @@ class ProposalDevelopmentObject < DataFactory
       activity_type:         '::random::',
       project_title:         random_alphanums(6, '\'~@#$^&{[<? '),
       sponsor_id:            '::random::',
-      sponsor_type_code:     '::random::',
+      sponsor_type_code:     'Federal',
       nsf_science_code:      '::random::',
       project_start_date:    next_week[:date_w_slashes], # TODO: Think about using the date object here, and not the string
       project_end_date:      next_year[:date_w_slashes],
@@ -91,7 +91,12 @@ class ProposalDevelopmentObject < DataFactory
   end
 
   def add_custom_data opts={}
-    @custom_data = prep(CustomDataObject, opts)
+    view 'Custom Data'
+    begin
+      @custom_data = prep(CustomDataObject, opts) if on(PDCustomData).asdf_tab.exists?
+    rescue
+      # selenium-webdriver bug
+    end
   end
 
   def add_proposal_attachment opts={}

@@ -58,7 +58,7 @@
       # If it's a key person without units then they won't have credit splits,
       # otherwise, the person will, so fill them out...
       if @key_person_role==nil || !@units.empty?
-        fill_out_item @full_name, person, :space, :responsibility, :financial, :recognition
+        fill_out_item @full_name, person, :responsibility, :financial
       end
 
       # Proposal Person Certification
@@ -138,10 +138,11 @@
   def cert_questions
     [:certify_info_true,
      :potential_for_conflict,
-     :submitted_financial_disclosures,
-     :lobbying_activities,
-     :excluded_from_transactions,
-     :familiar_with_pla]
+     #:submitted_financial_disclosures,
+     #:lobbying_activities,
+     #:excluded_from_transactions,
+     #:familiar_with_pla
+    ]
   end
 
   def page_class

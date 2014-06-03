@@ -135,7 +135,7 @@ class UserObject < DataFactory
                 :employee_id, :employee_status, :employee_type, :base_salary, :primary_department_code,
                 :groups, :roles, :role_qualifiers, :addresses, :phones, :emails,
                 :primary_title, :directory_title, :citizenship_type, :role,
-                :era_commons_user_name, :graduate_student_count, :billing_element,
+                :era_commons_user_name, #:graduate_student_count, :billing_element,
                 :directory_department,
                 :session_status, :type
 
@@ -261,7 +261,8 @@ class UserObject < DataFactory
       on PersonExtendedAttributes do |page|
         page.expand_all
         fill_out page, :description, :primary_title, :directory_title, :citizenship_type,
-                 :era_commons_user_name, :graduate_student_count, :billing_element,
+                 :era_commons_user_name, #:graduate_student_count,
+                 #:billing_element,
                  :principal_id, :directory_department
         page.blanket_approve
       end
@@ -305,22 +306,20 @@ class UserObject < DataFactory
   #   tabs/windows and return to the
   #   original window
   def sign_in
-    if $users.logged_in_user.nil?
-      sign_out
-    end
-    $users.logged_in_user.sign_out unless $users.current_user==nil
+    $users.current_user.sign_out if $users.logged_in_user
     visit Login do |log_in|
       log_in.username.set @user_name
       log_in.login
     end
-    on(Researcher).logout_button.wait_until_present
+    on(Researcher).user_menu.wait_until_present
     @session_status='logged in'
   end
   alias_method :log_in, :sign_in
 
   def sign_out
-    visit(Login).close_extra_windows
-    s_o.click if s_o.present?
+    visit(Login).close_extra_windows if @browser.windows.size > 1
+
+    s_o if @browser.link(data_toggle: 'dropdown').present?
     @session_status='logged out'
   end
   alias_method :log_out, :sign_out
@@ -386,7 +385,10 @@ class UserObject < DataFactory
   #========
 
   def s_o
-    @browser.button(value: 'Logout')
+    #FIXME
+
+    @browser.link(data_toggle: 'dropdown').click
+    @browser.button(value: 'Logout').click
   end
 
   def login_info_div

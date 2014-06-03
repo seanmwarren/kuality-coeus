@@ -62,11 +62,13 @@ class ProposalLogObject < DataFactory
   end
 
   def set_sponsor_code
+    #FIXME
     if @sponsor_id=='::random::'
       on(ProposalLog).find_sponsor_code
       on SponsorLookup do |look|
-        look.sponsor_type_code.pick! '::random::'
+        look.sponsor_type_code.pick! 'Federal'
         look.search
+        # TODO: Pick a different type if no results returned
         look.page_links[rand(look.page_links.length)].click if look.page_links.size > 0
         look.return_random
       end
